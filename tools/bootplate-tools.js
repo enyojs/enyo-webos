@@ -128,7 +128,10 @@ var cmds = {
 	},
 	update: function() {
 		exec("git submodule foreach git pull origin pilot", function(err, data) {
-			if (err) return callback(err);
+			if (err) {
+				console.error("An error occurred: " + err);
+				process.exit(1);
+			}
 			if (data) console.log(data);
 			console.log("Success!");
 		});
