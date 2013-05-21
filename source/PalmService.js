@@ -23,15 +23,18 @@ enyo.kind({
 	events: {
 		/**
 			Fires when a response is received. Event data contains the returned response.
+			The _originator_ property will contain the calling <a href="#enyo.ServiceRequest">enyo.ServiceRequest</a>.
 		*/
 		onResponse: "",
 		/**
 			Fires when an error is received. Event data contains the error data.
+			The _originator_ property will contain the calling <a href="#enyo.ServiceRequest">enyo.ServiceRequest</a>.
 		*/
 		onError: "",
 		/**
 			Fires when a service request is complete (regardless of success or failure).
 			Event data contains the response data and/or error data.
+			The _originator_ property will contain the calling <a href="#enyo.ServiceRequest">enyo.ServiceRequest</a>.
 		*/
 		onComplete: ""
 	},
@@ -48,23 +51,21 @@ enyo.kind({
 	*/
 	send: function(inParams) {
 		inParams = inParams || {};
-		var request = new enyo.ServiceRequest({
-			service: this.service,
+		var request = navigator.service.Request(this.service, {
 			method: this.method,
+			parameters:inParams,
 			subscribe: this.subscribe,
-			resubscribe: this.resubscribe
+			resubscribe: this.resubscribe,
+			onSuccess: enyo.bind(this, "requestSuccess"),
+			onFailure: enyo.bind(this, "requestFailure")
 		});
 		request.originalCancel = request.cancel;
 		request.cancel = enyo.bind(this, "cancel", request);
-		request.response(this, "requestSuccess");
-		request.error(this, "requestFailure");
 		if(this.subscribe) {
-			inParams.subscribe = this.subscribe;
 			this.activeSubscriptionRequests.push(request);
 		} else {
 			this.activeRequests.push(request);
 		}
-		request.go(inParams);
 		return request;
 	},
 	//* Cancels a given request.  The equivalent of `inRequest.cancel()`
@@ -86,10 +87,12 @@ enyo.kind({
 		}
 	},
 	requestSuccess: function(inRequest, inResponse) {
+		inResponse.originator = inRequest;
 		this.doResponse(inResponse);
 		this.requestComplete(inRequest, inResponse);
 	},
 	requestFailure: function(inRequest, inError) {
+		inError.originator = inRequest;
 		this.doError(inError);
 		this.requestComplete(inRequest, inResponse);
 	},
