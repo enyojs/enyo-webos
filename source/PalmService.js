@@ -51,13 +51,22 @@ enyo.kind({
 	*/
 	send: function(inParams) {
 		inParams = inParams || {};
+		var self = this;
 		var request = navigator.service.Request(this.service, {
 			method: this.method,
 			parameters:inParams,
 			subscribe: this.subscribe,
 			resubscribe: this.resubscribe,
-			onSuccess: enyo.bind(this, "requestSuccess"),
-			onFailure: enyo.bind(this, "requestFailure")
+			onSuccess: function(inResponse) {
+				inResponse.originator = request;
+				self.doResponse(inResponse);
+				self.requestComplete(request, inResponse);
+			},
+			onFailure: function(inError) {
+				inError.originator = request;
+				self.doError(inError);
+				self.requestComplete(request, inResponse);
+			}
 		});
 		request.originalCancel = request.cancel;
 		request.cancel = enyo.bind(this, "cancel", request);
@@ -85,16 +94,6 @@ enyo.kind({
 				this.activeSubscriptionRequests.splice(i, 1);
 			}
 		}
-	},
-	requestSuccess: function(inRequest, inResponse) {
-		inResponse.originator = inRequest;
-		this.doResponse(inResponse);
-		this.requestComplete(inRequest, inResponse);
-	},
-	requestFailure: function(inRequest, inError) {
-		inError.originator = inRequest;
-		this.doError(inError);
-		this.requestComplete(inRequest, inResponse);
 	},
 	requestComplete: function(inRequest, inData) {
 		var i = -1;
