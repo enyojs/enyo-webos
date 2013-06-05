@@ -51,30 +51,22 @@ enyo.kind({
 	*/
 	send: function(inParams) {
 		inParams = inParams || {};
-		var self = this;
-		var request = navigator.service.Request(this.service, {
+		var request = new enyo.ServiceRequest({
+			service: this.service,
 			method: this.method,
-			parameters:inParams,
 			subscribe: this.subscribe,
-			resubscribe: this.resubscribe,
-			onSuccess: function(inResponse) {
-				inResponse.originator = request;
-				self.doResponse(inResponse);
-				self.requestComplete(request, inResponse);
-			},
-			onFailure: function(inError) {
-				inError.originator = request;
-				self.doError(inError);
-				self.requestComplete(request, inResponse);
-			}
+			resubscribe: this.resubscribe
 		});
 		request.originalCancel = request.cancel;
 		request.cancel = enyo.bind(this, "cancel", request);
+		request.response(this, "requestSuccess");
+		request.error(this, "requestFailure");
 		if(this.subscribe) {
 			this.activeSubscriptionRequests.push(request);
 		} else {
 			this.activeRequests.push(request);
 		}
+		request.go(inParams);
 		return request;
 	},
 	//* Cancels a given request.  The equivalent of `inRequest.cancel()`
@@ -94,6 +86,14 @@ enyo.kind({
 				this.activeSubscriptionRequests.splice(i, 1);
 			}
 		}
+	},
+	requestSuccess: function(inRequest, inResponse) {
+		this.doResponse(inResponse);
+		this.requestComplete(inRequest, inResponse);
+	},
+	requestFailure: function(inRequest, inError) {
+		this.doError(inError);
+		this.requestComplete(inRequest, inResponse);
 	},
 	requestComplete: function(inRequest, inData) {
 		var i = -1;
