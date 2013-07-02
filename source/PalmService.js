@@ -93,7 +93,7 @@ enyo.kind({
 	},
 	requestFailure: function(inRequest, inError) {
 		this.doError(inError);
-		this.requestComplete(inRequest, inResponse);
+		this.requestComplete(inRequest, inError);
 	},
 	requestComplete: function(inRequest, inData) {
 		var i = -1;
