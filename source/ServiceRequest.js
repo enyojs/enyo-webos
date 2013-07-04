@@ -27,7 +27,7 @@ enyo.kind({
 	},
 	//* Execute the service request with an optional object for parameters to be sent.
 	go: function(inParams) {
-		if(!PalmServiceBridge) {
+		if(!window.PalmServiceBridge) {
 			this.fail({
 				errorCode: -1,
 				errorText: "Invalid device for Palm services. PalmServiceBridge not found."
