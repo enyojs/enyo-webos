@@ -1,6 +1,7 @@
 /**
 	An extension of the <a href="#enyo.Async">enyo.Async</a> object designed for webOS service requests.
 */
+/* globals PalmServiceBridge: true */
 
 enyo.kind({
 	name: "enyo.ServiceRequest",
@@ -8,9 +9,9 @@ enyo.kind({
 	//* @public
 	published: {
 		//* Palm service URI.  Starts with palm://
-		service:"",
+		service: "",
 		//* Service method you want to call
-		method:"",
+		method: "",
 		//* Whether or not the request to subscribe to the service
 		subscribe: false,
 		//* Whether or not the request should resubscribe when an error is returned
@@ -27,7 +28,7 @@ enyo.kind({
 	},
 	//* Execute the service request with an optional object for parameters to be sent.
 	go: function(inParams) {
-		if(!window.PalmServiceBridge) {
+		if(!PalmServiceBridge) {
 			this.fail({
 				errorCode: -1,
 				errorText: "Invalid device for Palm services. PalmServiceBridge not found."
@@ -35,7 +36,6 @@ enyo.kind({
 			return undefined;
 		}
 		this.params = inParams || {};
-		var self = this;
 		this.request = navigator.service.Request(this.service, {
 			method: this.method,
 			parameters: this.params,
@@ -55,7 +55,7 @@ enyo.kind({
 	},
 	//* @protected
 	serviceSuccess: function(inResponse) {
-		var successCallback = undefined;
+		var successCallback;
 		if(this.responders.length>0) {
 			successCallback = this.responders[0];
 		}
@@ -65,7 +65,7 @@ enyo.kind({
 		}
 	},
 	serviceFailure: function(inError) {
-		var failureCallback = undefined;
+		var failureCallback;
 		if(this.errorHandlers.length>0) {
 			failureCallback = this.errorHandlers[0];
 		}
