@@ -1,7 +1,7 @@
 /**
-	_enyo.PalmService_ is a component similar to <a href="#enyo.WebService">enyo.WebService</a>, but for 
+	_enyo.PalmService_ is a component similar to <a href="#enyo.WebService">enyo.WebService</a>, but for
 	Palm service requests.
-	
+
 	Internally it generates new <a href="#enyo.ServiceRequest">enyo.ServiceRequest</a> for each `send()`
 	call, keeping  track of each request made and sending out resulting events as they occur. This
 	allows for multiple concurrent request calls to be sent without any potential overlap or gc issues.
@@ -43,7 +43,7 @@ enyo.kind({
 		this.inherited(arguments);
 		this.activeRequests = [];
 		this.activeSubscriptionRequests = [];
-	},	
+	},
 	//* @public
 	/**
 		Sends a webOS service request with the passed-in parameters, returning the associated
@@ -109,7 +109,7 @@ enyo.kind({
 			this.activeRequests[i].originalCancel();
 		}
 		delete this.activeRequests;
-		
+
 		for(i=0; i<this.activeSubscriptionRequests.length; i++) {
 			this.activeSubscriptionRequests[i].originalCancel();
 		}
