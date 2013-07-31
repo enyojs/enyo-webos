@@ -8,9 +8,9 @@ enyo.kind({
 	//* @public
 	published: {
 		//* Palm service URI.  Starts with palm://
-		service:"",
+		service: "",
 		//* Service method you want to call
-		method:"",
+		method: "",
 		//* Whether or not the request to subscribe to the service
 		subscribe: false,
 		//* Whether or not the request should resubscribe when an error is returned
@@ -35,7 +35,6 @@ enyo.kind({
 			return undefined;
 		}
 		this.params = inParams || {};
-		var self = this;
 		this.request = navigator.service.request(this.service, {
 			method: this.method,
 			parameters: this.params,
@@ -55,7 +54,7 @@ enyo.kind({
 	},
 	//* @protected
 	serviceSuccess: function(inResponse) {
-		var successCallback = undefined;
+		var successCallback;
 		if(this.responders.length>0) {
 			successCallback = this.responders[0];
 		}
@@ -65,7 +64,7 @@ enyo.kind({
 		}
 	},
 	serviceFailure: function(inError) {
-		var failureCallback = undefined;
+		var failureCallback;
 		if(this.errorHandlers.length>0) {
 			failureCallback = this.errorHandlers[0];
 		}
