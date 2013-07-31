@@ -9,7 +9,7 @@
 
 enyo.kind({
 	name: "enyo.PalmService",
-	kind: enyo.Component,
+	kind: "enyo.Component",
 	published: {
 		//* Palm service URI.  Starts with palm://
 		service:"",
@@ -18,7 +18,9 @@ enyo.kind({
 		//* Whether or not the request to subscribe to the service
 		subscribe: false,
 		//* Whether or not the request should resubscribe when an error is returned
-		resubscribe: false
+		resubscribe: false,
+		//* If true, <a href="#enyo.MockRequest">enyo.MockRequest</a> will be used in place of enyo.ServiceRequest
+		mock: false
 	},
 	events: {
 		/**
@@ -51,17 +53,21 @@ enyo.kind({
 	*/
 	send: function(inParams) {
 		inParams = inParams || {};
-		var request = new enyo.ServiceRequest({
+		var request = this.createComponent({
+			kind: ((this.mock) ? "enyo.MockRequest" : "enyo.ServiceRequest"),
 			service: this.service,
 			method: this.method,
 			subscribe: this.subscribe,
 			resubscribe: this.resubscribe
 		});
+		if(this.mock && this.mockFile) {
+			request.mockFile = this.mockFile;
+		}
 		request.originalCancel = request.cancel;
 		request.cancel = enyo.bind(this, "cancel", request);
 		request.response(this, "requestSuccess");
 		request.error(this, "requestFailure");
-		if(this.subscribe) {
+		if(this.subscribe && !this.mock) {
 			this.activeSubscriptionRequests.push(request);
 		} else {
 			this.activeRequests.push(request);
