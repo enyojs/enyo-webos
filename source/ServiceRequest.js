@@ -4,7 +4,7 @@
 
 enyo.kind({
 	name: "enyo.ServiceRequest",
-	kind: enyo.Async,
+	kind: "enyo.Async",
 	//* @public
 	published: {
 		//* Palm service URI.  Starts with palm://
@@ -15,15 +15,6 @@ enyo.kind({
 		subscribe: false,
 		//* Whether or not the request should resubscribe when an error is returned
 		resubscribe: false
-	},
-	/**
-		Properties passed in the inParams object will be mixed into the object itself,
-		so you can optionally set properties like _"service"_ and _"method"_ inline in the
-		constructor rather than using the setters individually.
-	*/
-	constructor: function(inParams) {
-		enyo.mixin(this, inParams);
-		this.inherited(arguments);
 	},
 	//* Execute the service request with an optional object for parameters to be sent.
 	go: function(inParams) {
