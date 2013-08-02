@@ -35,7 +35,7 @@ enyo.kind({
 			return undefined;
 		}
 		this.params = inParams || {};
-		this.request = navigator.service.request(this.service, {
+		this.request = navigator.service.Request(this.service, {
 			method: this.method,
 			parameters: this.params,
 			subscribe: this.subscribe,
