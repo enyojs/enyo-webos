@@ -18,10 +18,12 @@ enyo.kind({
 		//* Whether or not the request to subscribe to the service
 		subscribe: false,
 		//* Whether or not the request should resubscribe when an error is returned
-		resubscribe: false,
-		//* If true, <a href="#enyo.MockRequest">enyo.MockRequest</a> will be used in place of enyo.ServiceRequest
-		mock: false
+		resubscribe: false
 	},
+	//* If true, <a href="#enyo.MockRequest">enyo.MockRequest</a> will be used in place of enyo.ServiceRequest
+	mock: false,
+	//* Optionally specify the json file to read for mock results, rather than autogenerating the filepath
+	mockFile: undefined,
 	events: {
 		/**
 			Fires when a response is received. Event data contains the returned response.
