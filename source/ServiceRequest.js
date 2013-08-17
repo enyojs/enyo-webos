@@ -4,26 +4,17 @@
 
 enyo.kind({
 	name: "enyo.ServiceRequest",
-	kind: enyo.Async,
+	kind: "enyo.Async",
 	//* @public
 	published: {
 		//* Palm service URI.  Starts with palm://
-		service:"",
+		service: "",
 		//* Service method you want to call
-		method:"",
+		method: "",
 		//* Whether or not the request to subscribe to the service
 		subscribe: false,
 		//* Whether or not the request should resubscribe when an error is returned
 		resubscribe: false
-	},
-	/**
-		Properties passed in the inParams object will be mixed into the object itself,
-		so you can optionally set properties like _"service"_ and _"method"_ inline in the
-		constructor rather than using the setters individually.
-	*/
-	constructor: function(inParams) {
-		enyo.mixin(this, inParams);
-		this.inherited(arguments);
 	},
 	//* Execute the service request with an optional object for parameters to be sent.
 	go: function(inParams) {
@@ -35,8 +26,7 @@ enyo.kind({
 			return undefined;
 		}
 		this.params = inParams || {};
-		var self = this;
-		this.request = navigator.service.Request(this.service, {
+		this.request = navigator.service.request(this.service, {
 			method: this.method,
 			parameters: this.params,
 			subscribe: this.subscribe,
@@ -55,7 +45,7 @@ enyo.kind({
 	},
 	//* @protected
 	serviceSuccess: function(inResponse) {
-		var successCallback = undefined;
+		var successCallback;
 		if(this.responders.length>0) {
 			successCallback = this.responders[0];
 		}
@@ -65,7 +55,7 @@ enyo.kind({
 		}
 	},
 	serviceFailure: function(inError) {
-		var failureCallback = undefined;
+		var failureCallback;
 		if(this.errorHandlers.length>0) {
 			failureCallback = this.errorHandlers[0];
 		}

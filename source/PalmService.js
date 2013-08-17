@@ -1,7 +1,7 @@
 /**
-	_enyo.PalmService_ is a component similar to <a href="#enyo.WebService">enyo.WebService</a>, but for 
+	_enyo.PalmService_ is a component similar to <a href="#enyo.WebService">enyo.WebService</a>, but for
 	Palm service requests.
-	
+
 	Internally it generates new <a href="#enyo.ServiceRequest">enyo.ServiceRequest</a> for each `send()`
 	call, keeping  track of each request made and sending out resulting events as they occur. This
 	allows for multiple concurrent request calls to be sent without any potential overlap or gc issues.
@@ -9,7 +9,7 @@
 
 enyo.kind({
 	name: "enyo.PalmService",
-	kind: enyo.Component,
+	kind: "enyo.Component",
 	published: {
 		//* Palm service URI.  Starts with palm://
 		service:"",
@@ -20,6 +20,10 @@ enyo.kind({
 		//* Whether or not the request should resubscribe when an error is returned
 		resubscribe: false
 	},
+	//* If true, <a href="#enyo.MockRequest">enyo.MockRequest</a> will be used in place of enyo.ServiceRequest
+	mock: false,
+	//* Optionally specify the json file to read for mock results, rather than autogenerating the filepath
+	mockFile: undefined,
 	events: {
 		/**
 			Fires when a response is received. Event data contains the returned response.
@@ -43,7 +47,7 @@ enyo.kind({
 		this.inherited(arguments);
 		this.activeRequests = [];
 		this.activeSubscriptionRequests = [];
-	},	
+	},
 	//* @public
 	/**
 		Sends a webOS service request with the passed-in parameters, returning the associated
@@ -51,17 +55,21 @@ enyo.kind({
 	*/
 	send: function(inParams) {
 		inParams = inParams || {};
-		var request = new enyo.ServiceRequest({
+		var request = this.createComponent({
+			kind: ((this.mock) ? "enyo.MockRequest" : "enyo.ServiceRequest"),
 			service: this.service,
 			method: this.method,
 			subscribe: this.subscribe,
 			resubscribe: this.resubscribe
 		});
+		if(this.mock && this.mockFile) {
+			request.mockFile = this.mockFile;
+		}
 		request.originalCancel = request.cancel;
 		request.cancel = enyo.bind(this, "cancel", request);
 		request.response(this, "requestSuccess");
 		request.error(this, "requestFailure");
-		if(this.subscribe) {
+		if(this.subscribe && !this.mock) {
 			this.activeSubscriptionRequests.push(request);
 		} else {
 			this.activeRequests.push(request);
@@ -109,7 +117,7 @@ enyo.kind({
 			this.activeRequests[i].originalCancel();
 		}
 		delete this.activeRequests;
-		
+
 		for(i=0; i<this.activeSubscriptionRequests.length; i++) {
 			this.activeSubscriptionRequests[i].originalCancel();
 		}
