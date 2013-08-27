@@ -1,11 +1,14 @@
 /**
-	An mock version of <a href="#enyo.ServiceRequest">enyo.ServiceRequest</a> designed for webOS service request simulation.
-	
-	It will read json mock results from a file and return the results in a manner similar to real service requests.
-	
-	For example, a call to service "palm://com.palm.systemservice/time" with method "getSystemTime" would automatically try 
-	to read the file "mock/com.palm.systemservice/time/getSystemTime.json". Alternatively, the _mockFile_ property can be set 
-	to specify a specific json file to read.
+	An mock version of <a href="#enyo.ServiceRequest">enyo.ServiceRequest</a>
+	designed for webOS service request simulation.
+
+	It will read json mock results from a file and return the results in a
+	manner similar to real service requests.
+
+	For example, a call to service "palm://com.palm.systemservice/time" with
+	method "getSystemTime" would automatically try to read the file
+	"mock/com.palm.systemservice/time/getSystemTime.json". Alternatively, the
+	_mockFile_ property can be set to specify a specific json file to read.
 */
 
 enyo.kind({
@@ -57,10 +60,10 @@ enyo.kind({
 	},
 	//* @protected
 	respond: function(inValue) {
-		if(inValue.errorCode || inValue.returnValue==false) {
+		if(inValue.errorCode || inValue.returnValue === false) {
 			this.fail(inValue);
 		} else {
 			this.inherited(arguments);
 		}
-	}	
+	}
 });
