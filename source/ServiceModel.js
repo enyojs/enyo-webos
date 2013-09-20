@@ -1,28 +1,40 @@
+/**
+	A webOS service version of <a href="#enyo.Model">enyo.Model</a> designed to allow
+	for proper formatting of service parameters within the Enyo data layer.
+	
+	Includes support for mock services via the mock property.
+	
+	Fetch/commit commands may include a json with the following properties:
+		params - JSON parameters payload to be sent with the service request
+		success - callback on request success
+		fail - callback on request failure
+*/
+
 enyo.kind({
-	name: "enyo.LS2Source",
-	kind: "enyo.Source",
-	fetch: function(rec, opts) {
-		var Kind = ((rec.mock) ? "enyo.ServiceRequest" : "enyo.MockRequest");
-		var o = enyo.only(this._serviceOptions, rec);
-		rec.request = new Kind(o);
-		var params = enyo.except(this._callbacks, opts);
-		rec.request.response(opts.success);
-		rec.request.error(opts.fail);
-		rec.request.go(params);
-	},
-	commit: function(rec, opts) {
-		//redirect to fetch as for services they're basically the same
-		this.fetch(rec, opts);
-	},
-	destroy: function (rec, opts) {
-		if(rec && rec.request && rec.request.cancel) {
-			rec.request.cancel()
-			rec.request = undefined;
-		}
-	},
-	//* @protected
-	_serviceOptions: ["service", "method", "subscribe", "resubscribe", "mockFile"],
-	_callbacks: ["success", "fail"]
+	name: "enyo.ServiceModel",
+	kind: "enyo.Model",
+	defaultSource:"service",
+	//* Palm service URI.  Starts with palm://
+	service: "",
+	//* Service method you want to call
+	method: "",
+	//* Whether or not the request to subscribe to the service
+	subscribe: false,
+	//* Whether or not the request should resubscribe when an error is returned
+	resubscribe: false,
+	//* If true, <a href="#enyo.MockRequest">enyo.MockRequest</a> will be used in place of enyo.ServiceRequest
+	mock: false,
+	//* Optionally specify the json file to read for mock results, rather than autogenerating the filepath
+	mockFile: undefined,
+	//* Outputs the model data in a payload form
+	raw: function() {
+		return {
+			service:this.service,
+			method:this.method,
+			subscribe:this.subscribe,
+			resubscribe:this.resubscribe,
+			mock:this.mock,
+			mockFile:this.mockFile
+		};
+	}
 });
-//add to store
-enyo.store.addSources({service:"enyo.LS2Source"});
