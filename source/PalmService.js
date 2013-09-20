@@ -96,10 +96,12 @@ enyo.kind({
 		}
 	},
 	requestSuccess: function(inRequest, inResponse) {
+		inResponse.originator = inRequest;
 		this.doResponse(inResponse);
 		this.requestComplete(inRequest, inResponse);
 	},
 	requestFailure: function(inRequest, inError) {
+		inError.originator = inRequest;
 		this.doError(inError);
 		this.requestComplete(inRequest, inError);
 	},
