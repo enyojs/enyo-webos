@@ -34,7 +34,7 @@ enyo.kind({
 	},
 	destroy: function (record, options) {
 		if(record && record.request && record.request.cancel) {
-			record.request.cancel()
+			record.request.cancel();
 			record.request = undefined;
 		}
 	},
