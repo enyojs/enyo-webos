@@ -1,3 +1,3 @@
 if (enyo && enyo.version) {
-	enyo.version["enyo-webos"] = "2.3.0-pre.9-dev";
+	enyo.version["enyo-webos"] = "2.3.0-pre.9";
 }
