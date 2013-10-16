@@ -14,7 +14,7 @@ enyo.kind({
 	name: "enyo.ServiceModel",
 	kind: "enyo.Model",
 	defaultSource:"service",
-	//* Palm service URI.  Starts with palm://
+	//* Luna service URI.  Starts with luna://
 	service: "",
 	//* Service method you want to call
 	method: "",
