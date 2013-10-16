@@ -7,7 +7,7 @@ enyo.kind({
 	kind: "enyo.Async",
 	//* @public
 	published: {
-		//* Palm service URI.  Starts with palm://
+		//* Luna service URI.  Starts with luna://
 		service: "",
 		//* Service method you want to call
 		method: "",
