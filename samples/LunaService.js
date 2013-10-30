@@ -4,7 +4,7 @@ enyo.kind({
 	kind:"enyo.Scroller",
 	components: [
 		{classes: "webos-sample", components:[
-			{name:"networkStatus", kind:"enyo.LunaService", service:"luna://com.palm.connectionmanager", method: "getstatus", onResponse:"serviceResponse", onError:"serviceError"}
+			{name:"networkStatus", kind:"enyo.LunaService", service:"luna://com.palm.connectionmanager", method: "getstatus", onResponse:"serviceResponse", onError:"serviceError"},
 			{kind:"enyo.Signals", ondeviceready:"deviceready"},
 			{classes: "webos-sample-divider", content: "Device API"},
 			{kind: "onyx.Groupbox", classes:"webos-sample-result-box", components: [
