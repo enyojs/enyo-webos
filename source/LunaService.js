@@ -1,6 +1,6 @@
 /**
-	_enyo.PalmService_ is a component similar to <a href="#enyo.WebService">enyo.WebService</a>, but for
-	Palm service requests.
+	_enyo.LunaService_ is a component similar to <a href="#enyo.WebService">enyo.WebService</a>, but for
+	LS2 service requests.
 
 	Internally it generates new <a href="#enyo.ServiceRequest">enyo.ServiceRequest</a> for each `send()`
 	call, keeping  track of each request made and sending out resulting events as they occur. This
@@ -8,10 +8,10 @@
 */
 
 enyo.kind({
-	name: "enyo.PalmService",
+	name: "enyo.LunaService",
 	kind: "enyo.Component",
 	published: {
-		//* Palm service URI.  Starts with palm://
+		//* Luna service URI.  Starts with luna://
 		service:"",
 		//* Service method you want to call
 		method:"",
@@ -43,6 +43,7 @@ enyo.kind({
 		onComplete: ""
 	},
 	//* @protected
+	noDefer: true, //needed for referencing to enyo.PalmService for compatability
 	create: function() {
 		this.inherited(arguments);
 		this.activeRequests = [];
@@ -127,3 +128,4 @@ enyo.kind({
 		this.inherited(arguments);
 	}
 });
+enyo.PalmService = enyo.LunaService;
