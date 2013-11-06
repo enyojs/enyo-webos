@@ -4,5 +4,6 @@ enyo.depends(
 	"MockRequest.js",
 	"LunaService.js",
 	"LS2Source.js",
-	"ServiceModel.js"
+	"ServiceModel.js",
+	"webOSjs-loader.js"
 );
