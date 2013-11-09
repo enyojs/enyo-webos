@@ -1,4 +1,3 @@
-/* global device: true */
 enyo.kind({
 	name: "enyo.webos.sample.webOS",
 	classes: "onyx enyo-fit",
