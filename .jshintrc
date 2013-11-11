@@ -1,6 +1,7 @@
 {
     "globals": {
-        "enyo": true
+        "enyo": true,
+        "webOS": true
     },
     "es3": true,
     "evil": false,

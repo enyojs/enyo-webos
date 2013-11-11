@@ -1,4 +1,5 @@
 enyo.depends(
 	"sample.css",
-	"LunaService.js"
+	"LunaService.js",
+	"webOS.js"
 );
