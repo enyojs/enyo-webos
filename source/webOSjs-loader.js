@@ -4,7 +4,7 @@ Loads the cordova.js file for the current platform.
 //* @protected
 (function(){
 	if (enyo.platform.webos || window.PalmSystem) {
-		var webOSjsVersion = window.webOSjsVersion || "0.0.1";
+		var webOSjsVersion = window.webOSjsVersion || "0.1.0";
 		var fn = "$lib/enyo-webos/assets/webOSjs-" + webOSjsVersion + "/webOS.js";
 		enyo.depends(fn);
 		enyo.ready(function() {
