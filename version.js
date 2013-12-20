@@ -1,3 +1,3 @@
 if (enyo && enyo.version) {
-	enyo.version["enyo-webos"] = "2.3.0-rc.3";
+	enyo.version["enyo-webos"] = "2.3.0-rc.4";
 }
