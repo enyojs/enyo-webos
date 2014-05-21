@@ -35,10 +35,14 @@ enyo.kind({
 		};
 		model.request = new Kind(o);
 		model.request.response(function (req, res) {
-			if (opts.success) opts.success(res, req);
+			if(opts.success) {
+				opts.success(res, req);
+			}
 		});
 		model.request.error(function (req, res) {
-			if (opts.fail) opts.fail(res, req);
+			if(opts.fail) {
+				opts.fail(res, req);
+			}
 		});
 		model.request.go(opts.params || model.params || {});
 	},
