@@ -41,6 +41,3 @@ enyo.kind({
 	//* @protected
 	_serviceOptions: ["service", "method", "subscribe", "resubscribe", "mockFile"]
 });
-//* @protected
-//add to store
-enyo.store.addSources({service:"enyo.LS2Source"});
