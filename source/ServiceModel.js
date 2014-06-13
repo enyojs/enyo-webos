@@ -15,6 +15,11 @@
 enyo.kind({
 	name: "enyo.ServiceModel",
 	kind: "enyo.Model",
+	/**
+		Name of the created LunaSource source to use. Default naming scheme can be defined by:
+
+			enyo.Source.create({kind:"LunaSource"});
+	*/
 	source: "LunaSource",
 	//* Luna service URI.  Starts with luna://
 	service: "",

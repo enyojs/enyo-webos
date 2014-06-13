@@ -63,9 +63,3 @@ enyo.kind({
 		}
 	}
 });
-
-/**
-	@private
-*/
-//add service source
-enyo.Source.create({kind:"LunaSource"});
