@@ -7,6 +7,7 @@
 enyo.kind({
 	name: "enyo.LunaSource",
 	kind: "enyo.Source",
+	noDefer: true,
 	/**
 		The request is created and sent, saving the request object reference to the
 		"request" property on the model.
@@ -62,6 +63,9 @@ enyo.kind({
 		}
 	}
 });
-//* @protected
+
+/**
+	@private
+*/
 //add service source
-enyo.sources.LunaSource = new enyo.LunaSource();
+enyo.Source.create({kind:"LunaSource"});
