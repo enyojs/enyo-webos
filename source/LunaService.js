@@ -18,7 +18,9 @@ enyo.kind({
 		//* Whether or not the request to subscribe to the service
 		subscribe: false,
 		//* Whether or not the request should resubscribe when an error is returned
-		resubscribe: false
+		resubscribe: false,
+		//* If set to a non-zero value, the number of milliseconds to wait after the _send_ call before failing with the "timeout" error
+		timeout: 0
 	},
 	//* If true, <a href="#enyo.MockRequest">enyo.MockRequest</a> will be used in place of enyo.ServiceRequest
 	mock: false,
@@ -61,7 +63,8 @@ enyo.kind({
 			service: this.service,
 			method: this.method,
 			subscribe: this.subscribe,
-			resubscribe: this.resubscribe
+			resubscribe: this.resubscribe,
+			timeout: this.timeout
 		});
 		if(this.mock && this.mockFile) {
 			request.mockFile = this.mockFile;
