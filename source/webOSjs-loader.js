@@ -1,8 +1,7 @@
-/**
-Loads the cordova.js file for the current platform.
-*/
-//* @protected
-(function(){
+(function (enyo, scope) {
+	/**
+	* Loads the cordova.js file for the current platform.
+	*/
 	if (enyo.platform.webos || window.PalmSystem) {
 		var webOSjsVersion = window.webOSjsVersion || "0.1.0";
 		var fn = "$lib/enyo-webos/assets/webOSjs-" + webOSjsVersion + "/webOS.js";
@@ -17,4 +16,5 @@ Loads the cordova.js file for the current platform.
 	} else {
 		enyo.warn("webOS.js not loaded: Current platform not supported.");
 	}
-})();
+
+})(enyo, this);
