@@ -65,5 +65,14 @@ enyo.kind({
 				this.error(failureCallback);
 			}
 		}
+	},
+	// override async timeoutComplete for more specialized handling
+	timeoutComplete: function () {
+		this.timedout = true;
+		this.fail({
+			errorCode: -2,
+			errorText: "Service request timeout"
+		);
+		this.cancel();
 	}
 });
