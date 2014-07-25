@@ -1,20 +1,3 @@
-(function (enyo, scope) {
-
-	/**
-	* An extension of the {@link enyo.Async} object designed for webOS service requests.
-	*
-	* @class enyo.ServiceRequest
-	* @extends enyo.Async
-	* @public
-	*/
-	enyo.kind(
-		/** @lends enyo.ServiceRequest.prototype */ {
-
-		/**
-		* @private
-		*/
-		name: 'enyo.ServiceRequest',
-
 		/**
 		* @private
 		*/
@@ -130,6 +113,14 @@
 				}
 			}
 		}
-	});
-
-})(enyo, this);
+	},
+	// override async timeoutComplete for more specialized handling
+	timeoutComplete: function () {
+		this.timedout = true;
+		this.fail({
+			errorCode: -2,
+			errorText: "Service request timeout"
+		);
+		this.cancel();
+	}
+});
