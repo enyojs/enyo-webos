@@ -72,7 +72,7 @@ enyo.kind({
 		this.fail({
 			errorCode: -2,
 			errorText: "Service request timeout"
-		);
+		});
 		this.cancel();
 	}
 });
