@@ -94,7 +94,17 @@
 			* @default false
 			* @public
 			*/
-			resubscribe: false
+			resubscribe: false,
+			
+			/**
+			* The number of milliseconds to wait before failing with a _timeout_ error. This only
+			* takes effect for non-zero values.
+			*
+			* @type {Number}
+			* @default 0
+			* @public
+			*/
+			timeout: 0
 		},
 
 		/**
