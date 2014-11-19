@@ -130,7 +130,10 @@
 				}
 			}
 		},
-		// override async timeoutComplete for more specialized handling
+		
+		/**
+		* @private
+		*/
 		timeoutComplete: function () {
 			this.timedout = true;
 			this.fail({
