@@ -166,7 +166,8 @@
 				service: this.service,
 				method: this.method,
 				subscribe: this.subscribe,
-				resubscribe: this.resubscribe
+				resubscribe: this.resubscribe,
+				timeout: this.timeout
 			});
 			if(this.mock && this.mockFile) {
 				request.mockFile = this.mockFile;

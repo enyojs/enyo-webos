@@ -77,6 +77,7 @@
 				});
 				return undefined;
 			}
+			this.startTimer();
 			this.params = params || {};
 			this.request = navigator.service.request(this.service, {
 				method: this.method,
