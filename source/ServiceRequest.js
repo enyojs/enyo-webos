@@ -129,6 +129,18 @@
 					this.error(failureCallback);
 				}
 			}
+		},
+		
+		/**
+		* @private
+		*/
+		timeoutComplete: function () {
+			this.timedout = true;
+			this.fail({
+				errorCode: -2,
+				errorText: "Service request timeout"
+			});
+			this.cancel();
 		}
 	});
 
