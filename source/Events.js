@@ -42,7 +42,8 @@
 		var wev = [
 			'webOSLaunch',
 			'webOSRelaunch',
-			'webOSLocaleChange'
+			'webOSLocaleChange',
+			'webOSThemeChange'
 		];
 		for (var i=0, e; (e=wev[i]); i++) {
 			document.addEventListener(e, enyo.bind(enyo.Signals, 'send', 'on' + e), false);
