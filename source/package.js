@@ -5,5 +5,6 @@ enyo.depends(
 	'LunaService.js',
 	'LunaSource.js',
 	'ServiceModel.js',
+	'Feedback.js',
 	'webOSjs-loader.js'
 );
