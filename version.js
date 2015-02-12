@@ -1,7 +1,7 @@
 (function (enyo, scope) {
 
 	if (enyo && enyo.version) {
-		enyo.version['enyo-webos'] = "2.5.3-pre.10.w";
+		enyo.version['enyo-webos'] = "2.5.3-pre.12.w";
 	}
 
 })(enyo, this);
