@@ -1,7 +1,7 @@
 (function (enyo, scope) {
 
 	if (enyo && enyo.version) {
-		enyo.version['enyo-webos'] = "2.6.0-zzz.2";
+		enyo.version['enyo-webos'] = "2.6.0-zzz.2.dev";
 	}
 
 })(enyo, this);
