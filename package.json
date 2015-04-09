@@ -3,6 +3,9 @@
   "version": "2.6.0-pre.5-dev",
   "description": "enyo-webos ==========",
   "main": "index.js",
+  "assets": [
+    "*/**.js"
+  ],
   "bugs": "http://jira.enyojs.com/",
   "scripts": {
     "test": "./node_modules/.bin/gulp"
