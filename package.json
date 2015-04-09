@@ -1,0 +1,32 @@
+{
+  "name": "enyo-webos",
+  "version": "2.6.0-pre.5-dev",
+  "description": "enyo-webos ==========",
+  "main": "index.js",
+  "bugs": "http://jira.enyojs.com/",
+  "scripts": {
+    "test": "./node_modules/.bin/gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/enyojs/enyo-webos.git"
+  },
+  "maintainers": [
+    {
+      "name": "Enyo JS Framework Team",
+      "web": "http://enyojs.com/"
+    }
+  ],
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
+  "homepage": "https://github.com/enyojs/enyo-webos",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-jshint": "^1.10.0",
+    "jshint-stylish": "^1.0.1"
+  }
+}
