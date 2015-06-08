@@ -6,6 +6,7 @@ var
 var
 	Signals = require('enyo/Signals');
 
+require('./lib/Events');
 require('./assets/webOSjs-0.1.0/webOS');
 if (!global.cordova) {
 	// if Cordova not used, add signal generation for the "menubutton" event used
