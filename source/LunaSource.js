@@ -69,8 +69,8 @@
 				}
 			});
 			model.request.error(function (req, res) {
-				if(opts.fail) {
-					opts.fail(res, req);
+				if(opts.error) {
+					opts.error(res, req);
 				}
 			});
 			model.request.go(opts.params || model.params || {});
