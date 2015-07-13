@@ -8,6 +8,7 @@ var
 
 require('./lib/Events');
 require('./webOS/webOS');
+require('./lib/AppInfo');
 if (!global.cordova) {
 	// if Cordova not used, add signal generation for the "menubutton" event used
 	// in webOS.js for legacy webOS and Open webOS for the appmenu
