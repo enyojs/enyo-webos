@@ -11,7 +11,7 @@
 	* @property {Boolean} resubscribe - whether or not the request should resubscribe when an error is returned (default false)
 	* @property {Object} params       - parameters payload to be sent with the service request
 	* @property {Function} success    - callback on request success
-	* @property {Function} fail       - callback on request failure
+	* @property {Function} error       - callback on request failure
 	* @property {Boolean} mock        - if true, <a href='#enyo.MockRequest'>enyo.MockRequest</a> will be used in place of enyo.ServiceRequest
 	* @property {String} mockFile     - specify the json file to read for mock results, rather than autogenerating the filepath
 	* @public
@@ -69,8 +69,8 @@
 				}
 			});
 			model.request.error(function (req, res) {
-				if(opts.fail) {
-					opts.fail(res, req);
+				if(opts.error) {
+					opts.error(res, req);
 				}
 			});
 			model.request.go(opts.params || model.params || {});
