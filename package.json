@@ -1,8 +1,12 @@
 {
   "name": "enyo-webos",
+  "assets": [],
+  "devAssets": [],
+  "styles": [],
+  "main": "index.js",
+  "moduleDir": "src",
   "version": "2.6.0-pre.5-dev",
   "description": "enyo-webos ==========",
-  "main": "index.js",
   "bugs": "http://jira.enyojs.com/",
   "scripts": {
     "test": "./node_modules/.bin/gulp"
