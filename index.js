@@ -6,9 +6,9 @@ var
 var
 	Signals = require('enyo/Signals');
 
-require('./lib/Events');
+require('./src/Events');
 require('./webOS/webOS');
-require('./lib/AppInfo');
+require('./src/AppInfo');
 if (!global.cordova) {
 	// if Cordova not used, add signal generation for the "menubutton" event used
 	// in webOS.js for legacy webOS and Open webOS for the appmenu
