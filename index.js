@@ -1,7 +1,8 @@
 var
 	platform = require('enyo/platform'),
 	logger = require('enyo/logger'),
-	utils = require('enyo/utils');
+	utils = require('enyo/utils'),
+	dispatcher = require('enyo/dispatcher');
 
 var
 	Signals = require('enyo/Signals');
@@ -14,5 +15,6 @@ if (!global.cordova) {
 	// in webOS.js for legacy webOS and Open webOS for the appmenu
 	document.addEventListener('menubutton', utils.bind(Signals, 'send', 'onmenubutton'), false);
 }
+dispatcher.listen(document, 'webOSMouse');
 
 exports.version = '2.6.0-pre.9.dev';
