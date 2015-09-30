@@ -1,3 +1,8 @@
+/**
+* Contains the declaration for the {@link module:enyo-webos/LunaService~LunaService} kind.
+* @module enyo-webos/LunaService
+*/
+
 var
 	utils = require('enyo/utils'),
 	kind = require('enyo/kind');
@@ -9,18 +14,18 @@ var
 
 /**
 * Fires when a response is received. Event data contains the returned response. The `originator`
-* property will contain the calling <a href='#enyo.ServiceRequest'>enyo.ServiceRequest</a>.
+* property will contain the calling {@link module:enyo-webos/ServiceRequest~ServiceRequest}.
 *
-* @event enyo.LunaService#event:onResponse
+* @event module:enyo-webos/LunaService~LunaService#onResponse
 * @type {Object}
 * @public
 */
 
 /**
 * Fires when an error is received. Event data contains the error data. The `originator` property
-* will contain the calling <a href='#enyo.ServiceRequest'>enyo.ServiceRequest</a>.
+* will contain the calling {@link module:enyo-webos/ServiceRequest~ServiceRequest}.
 *
-* @event enyo.LunaService#event:onError
+* @event module:enyo-webos/LunaService~LunaService#onError
 * @type {Object}
 * @public
 */
@@ -28,28 +33,29 @@ var
 /**
 * Fires when a service request is complete (regardless of success or failure). Event data
 * contains the response data and/or error data. The `originator` property will contain the
-* calling <a href='#enyo.ServiceRequest'>enyo.ServiceRequest</a>.
+* calling {@link module:enyo-webos/ServiceRequest~ServiceRequest}.
 *
-* @event enyo.LunaService#event:onComplete
+* @event module:enyo-webos/LunaService~LunaService#onComplete
 * @type {Object}
 * @public
 */
 
 /**
-* _enyo.LunaService_ is a component similar to {@link enyo.WebService}, but for
-* LS2 service requests.
+* {@link module:enyo-webos/LunaService~LunaService} is a component similar to
+* {@link module:enyo/WebService~WebService}, but for LS2 service requests.
 *
-* Internally it generates new {@link enyo.ServiceRequest} for each
-* `[send()]{@link enyo.LunaService#send}` call, keeping track of each request made and sending
-* out resulting events as they occur. This allows for multiple concurrent request calls to be
-* sent without any potential overlap or gc issues.
+* Internally, it generates a new {@link module:enyo-webos/ServiceRequest~ServiceRequest}
+* for each `[send()]{@link module:enyo-webos/LunaService~LunaService#send}` call,
+* keeping track of each request made and sending out resulting events as they
+* occur. This allows multiple concurrent request calls to be sent without any
+* potential overlap or garbage collection issues.
 *
-* @class enyo.LunaService
-* @extends enyo.Component
+* @class LunaService
+* @extends module:enyo/Component~Component
 * @public
 */
 module.exports = kind(
-	/** @lends enyo.LunaService.prototype */ {
+	/** @lends module:enyo-webos/LunaService~LunaService.prototype */ {
 
 	/**
 	* @private
@@ -62,13 +68,13 @@ module.exports = kind(
 	kind: Component,
 
 	/**
-	* @lends enyo.LunaService.prototype
+	* @lends module:enyo-webos/LunaService~LunaService.prototype
 	* @private
 	*/
 	published: {
 
 		/**
-		* Luna service URI.  Starts with luna://
+		* The Luna service URI.  Starts with `luna://`.
 		*
 		* @type {String}
 		* @default ''
@@ -77,7 +83,7 @@ module.exports = kind(
 		service: '',
 
 		/**
-		* Service method you want to call
+		* The service method to call.
 		*
 		* @type {String}
 		* @default ''
@@ -86,7 +92,7 @@ module.exports = kind(
 		method: '',
 
 		/**
-		* Whether or not the request to subscribe to the service
+		* Whether or not to subscribe to the service.
 		*
 		* @type {Boolean}
 		* @default false
@@ -95,7 +101,7 @@ module.exports = kind(
 		subscribe: false,
 
 		/**
-		* Whether or not the request should resubscribe when an error is returned
+		* Whether or not the request should resubscribe when an error is returned.
 		*
 		* @type {Boolean}
 		* @default false
@@ -115,7 +121,8 @@ module.exports = kind(
 	},
 
 	/**
-	* If true, {@link enyo.MockRequest} will be used in place of {@link enyo.ServiceRequest}
+	* If true, {@link module:enyo-webos/MockRequest~MockRequest} will be used in
+	* place of {@link module:enyo-webos/ServiceRequest~ServiceRequest}.
 	*
 	* @type {Boolean}
 	* @default false
@@ -124,8 +131,8 @@ module.exports = kind(
 	mock: false,
 
 	/**
-	* Optionally specify the json file to read for mock results, rather than autogenerating the
-	* filepath
+	* Optionally specifies a JSON file to read for mock results, rather than
+	* autogenerating the filepath.
 	*
 	* @type {String}
 	* @default `undefined`
@@ -143,7 +150,8 @@ module.exports = kind(
 	},
 
 	/**
-	* Needed for referencing to enyo.PalmService for compatability
+	* Needed for referencing to {@link module:enyo-webos/PalmService~PalmService}
+	* for compatability.
 	*
 	* @private
 	*/
@@ -160,10 +168,10 @@ module.exports = kind(
 
 	/**
 	* Sends a webOS service request with the passed-in parameters, returning the associated
-	* {@link enyo.ServiceRequest} instance.
+	* {@link module:enyo-webos/ServiceRequest~ServiceRequest} instance.
 	*
 	* @param {Object} params - Hash of parameters for the request
-	* @return {enyo.ServiceRequest}
+	* @return {module:enyo-webos/ServiceRequest~ServiceRequest}
 	* @public
 	*/
 	send: function (params) {
@@ -193,10 +201,10 @@ module.exports = kind(
 	},
 
 	/**
-	* Cancels a given request.  The equivalent of
-	* `[request.cancel()]{@link enyo.ServiceRequest#cancel}`
+	* Cancels the specified request.  The equivalent of
+	* `[request.cancel()]{@link module:enyo-webos/ServiceRequest~ServiceRequest#cancel}`.
 	*
-	* @param {enyo.ServiceRequest} request - Request to cancel
+	* @param {module:enyo-webos/ServiceRequest~ServiceRequest} request - The request to cancel
 	* @public
 	*/
 	cancel: function (request) {
@@ -205,9 +213,9 @@ module.exports = kind(
 	},
 
 	/**
-	* Removes the request from the active request arrays
+	* Removes the specified request from the active request arrays.
 	*
-	* @param {enyo.ServiceRequest} reuqest - Request to remove
+	* @param {module:enyo-webos/ServiceRequest~ServiceRequest} request - The request to remove
 	* @private
 	*/
 	removeRequest: function (request) {
@@ -224,7 +232,7 @@ module.exports = kind(
 	},
 
 	/**
-	* @fires enyo.LunaService#event:onResponse
+	* @fires {@link module:enyo-webos/LunaService~LunaService#onResponse}
 	* @private
 	*/
 	requestSuccess: function (request, response) {
@@ -234,7 +242,7 @@ module.exports = kind(
 	},
 
 	/**
-	* @fires enyo.LunaService#event:onError
+	* @fires {@link module:enyo-webos/LunaService~LunaService#onError}
 	* @private
 	*/
 	requestFailure: function (request, error) {
@@ -244,7 +252,7 @@ module.exports = kind(
 	},
 
 	/**
-	* @fires enyo.LunaService#event:onComplete
+	* @fires {@link module:enyo-webos/LunaService~LunaService#onComplete}
 	* @private
 	*/
 	requestComplete: function (request, data) {
@@ -257,9 +265,9 @@ module.exports = kind(
 	},
 
 	/**
-	* Cancels any active requests
+	* Cancels any active requests.
 	*
-	* @see enyo.Object#destroy
+	* @see {@link module:enyo/CoreObject~Object#destroy}
 	* @private
 	*/
 	destroy: function () {

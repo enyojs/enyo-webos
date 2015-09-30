@@ -1,3 +1,8 @@
+/**
+* Contains the declaration for the {@link module:enyo-webos/Events} module.
+* @module enyo-webos/Events
+*/
+
 var
 	utils = require('enyo/utils'),
 	platform = require('enyo/platform');
@@ -6,13 +11,18 @@ var
 	Signals = require('enyo/Signals');
 
 /**
-* Events are exposed through the {@link enyo.Signals} kind by adding callback handlers.
+* Events are exposed through the {@link module:enyo/Signals~Signals} kind by
+* adding callback handlers.
 *
-* ```
-* enyo.kind({
+* ```javascript
+* var
+* 	kind = require('enyo/kind'),
+* 	Signals = require('enyo/Signals');
+*
+* module.exports = kind({
 * 	name: 'App',
 * 	components: [
-* 		{kind: 'Signals', onwebOSRelaunch: 'relaunch'},
+* 		{kind: Signals, onwebOSRelaunch: 'relaunch'},
 * 		// ...
 * 	],
 * 	relaunch: function(inSender, inEvent) {
@@ -20,29 +30,28 @@ var
 * 	}
 * });
 * ```
-* @external webOS-Event
 */
 
 /**
-* @event event:onwebOSLaunch
+* @event module:enyo-webos/Events#onwebOSLaunch
 * @see external:webOS-Event
 * @public
 */
 
 /**
-* @event event:onwebOSRelaunch
+* @event module:enyo-webos/Events#onwebOSRelaunch
 * @see external:webOS-Event
 * @public
 */
 
 /**
-* @event event:onwebOSLocaleChange
+* @event module:enyo-webos/Events#onwebOSLocaleChange
 * @see external:webOS-Event
 * @public
 */
 
 /**
-* Listens for webOS specific events
+* Listens for webOS-specific events
 */
 if (platform.webos || window.PalmSystem) {
 	var wev = [

@@ -1,5 +1,10 @@
 require('enyo-webos');
-	
+
+/**
+* Contains the declaration for the {@link module:enyo-webos/ServiceRequest~ServiceRequest} kind.
+* @module enyo-webos/ServiceRequest
+*/
+
 var
 	kind = require('enyo/kind'),
 	utils = require('enyo/utils');
@@ -8,14 +13,15 @@ var
 	Async = require('enyo/Async');
 
 /**
-* An extension of the {@link enyo.Async} object designed for webOS service requests.
+* An extension of the {@link module:enyo/Async~Async} object designed for webOS
+* service requests.
 *
-* @class enyo.ServiceRequest
-* @extends enyo.Async
+* @class ServiceRequest
+* @extends module:enyo/Async~Async
 * @public
 */
 module.exports = kind(
-	/** @lends enyo.ServiceRequest.prototype */ {
+	/** @lends module:enyo-webos/ServiceRequest~ServiceRequest.prototype */ {
 
 	/**
 	* @private
@@ -33,7 +39,7 @@ module.exports = kind(
 	published: {
 
 		/**
-		* Luna service URI.  Starts with luna://
+		* The Luna service URI.  Starts with `luna://`.
 		*
 		* @type {String}
 		* @default ''
@@ -42,7 +48,7 @@ module.exports = kind(
 		service: '',
 
 		/**
-		* Service method you want to call
+		* The service method to call.
 		*
 		* @type {String}
 		* @default ''
@@ -51,7 +57,7 @@ module.exports = kind(
 		method: '',
 
 		/**
-		* Whether or not the request to subscribe to the service
+		* Whether or not to subscribe to the service.
 		*
 		* @type {Boolean}
 		* @default false
@@ -60,7 +66,7 @@ module.exports = kind(
 		subscribe: false,
 
 		/**
-		* Whether or not the request should resubscribe when an error is returned
+		* Whether or not the request should resubscribe when an error is returned.
 		*
 		* @type {Boolean}
 		* @default false
@@ -70,7 +76,8 @@ module.exports = kind(
 	},
 
 	/**
-	* Execute the service request with an optional object for parameters to be sent.
+	* Executes the service request with an optional object containing parameters
+	* to be sent.
 	*
 	* @param {Object} [params]
 	* @return {Object}
@@ -98,7 +105,7 @@ module.exports = kind(
 	},
 
 	/**
-	* Cancel the request/subscription.
+	* Cancels the request/subscription.
 	*
 	* @public
 	*/

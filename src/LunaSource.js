@@ -1,3 +1,8 @@
+/**
+* Contains the declaration for the {@link module:enyo-webos/LunaSource~LunaSource} kind.
+* @module enyo-webos/LunaSource
+*/
+
 var
 	kind = require('enyo/kind');
 
@@ -7,33 +12,33 @@ var
 	ServiceRequest = require('./ServiceRequest');
 
 /**
-* Optional parameters for {@link enyo.LunaSource#fetch}
+* Optional parameters for {@link module:enyo-webos/LunaSource~LunaSource#fetch}.
 *
-* @typedef enyo.LunaSource~FetchOptions
+* @typedef module:enyo-webos/LunaSource~LunaSource~FetchOptions
 * @type {Object}
-* @property {String} service      - luna service URI
-* @property {String} method       - service method to call
-* @property {Boolean} subscribe   - whether or not the request to subscribe to the service (default false)
-* @property {Boolean} resubscribe - whether or not the request should resubscribe when an error is returned (default false)
-* @property {Object} params       - parameters payload to be sent with the service request
-* @property {Function} success    - callback on request success
-* @property {Function} fail       - callback on request failure
-* @property {Boolean} mock        - if true, <a href='#enyo.MockRequest'>enyo.MockRequest</a> will be used in place of enyo.ServiceRequest
-* @property {String} mockFile     - specify the json file to read for mock results, rather than autogenerating the filepath
+* @property {String} service      - Luna service URI
+* @property {String} method       - The service method to call
+* @property {Boolean} subscribe   - Whether or not the request should subscribe to the service (default false)
+* @property {Boolean} resubscribe - Whether or not the request should resubscribe when an error is returned (default false)
+* @property {Object} params       - Payload of parameters to be sent with the service request
+* @property {Function} success    - Callback on request success
+* @property {Function} fail       - Callback on request failure
+* @property {Boolean} mock        - If `true`, {@link module:enyo-webos/MockRequest~MockRequest} will be used in place of enyo.ServiceRequest
+* @property {String} mockFile     - Specifies a JSON file to read for mock results, rather than autogenerating the filepath
 * @public
 */
 
 /**
-* An {@link enyo.Source} subkind designed to support webOS luna services.
-* Intended to be used internaly by {@link enyo.ServiceModel}, this
-* source kind includes support for on-device as well as mock service calls
+* A subkind of {@link module:enyo/Source~Source} designed to support webOS Luna services.
+* Intended to be used internally by {@link module:enyo-webos/ServiceModel~ServiceModel},
+* this source kind includes support for on-device as well as mock service calls.
 *
-* @class  enyo.LunaSource
-* @extends enyo.Source
+* @class LunaSource
+* @extends module:enyo/Source~Source
 * @public
 */
 module.exports = kind(
-	/** @lends enyo.LunaSource.prototype */ {
+	/** @lends module:enyo-webos/LunaSource~LunaSource.prototype */ {
 
 	/**
 	* @private
@@ -49,9 +54,10 @@ module.exports = kind(
 	* The request is created and sent, saving the request object reference to the
 	* 'request' property on the model.
 	*
-	* @param {enyo.ServiceModel} model - Model to fetch
-	* @param {enyo.LunaSource~FetchOptions} opts - Fetch options. All properties (except for
-	* 	success and fail) may alternatively be included in the model itself, for convenience.
+	* @param {module:enyo-webos/ServiceModel~ServiceModel} model - The model to fetch
+	* @param {module:enyo-webos/LunaSource~LunaSource~FetchOptions} opts - Fetch options.
+	* 	All properties (except for success and fail) may alternatively be included
+	* 	in the model itself, for convenience.
 	* @public
 	*/
 	fetch: function (model, opts) {
@@ -80,9 +86,9 @@ module.exports = kind(
 	/**
 	* With service requests, fetch and commit share identical routes.
 	*
-	* @param {enyo.ServiceModel} model - Model to commit
-	* @param {enyo.LunaSource~FetchOptions} opts - Commit options
-	* @see enyo.LunaSource#fetch
+	* @param {module:enyo-webos/ServiceModel~ServiceModel} model - The Model to commit
+	* @param {module:enyo-webos/LunaSource~LunaSource~FetchOptions} opts - Commit options
+	* @see {@link module:enyo-webos/LunaSource~LunaSource#fetch}
 	* @public
 	*/
 	commit: function (model, opts) {

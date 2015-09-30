@@ -1,11 +1,16 @@
 require('../webOS/webOS');
 
+/**
+* Contains the declaration for the {@link module:enyo-webos/VoiceReadout} module.
+* @module enyo-webos/VoiceReadout
+*/
+
 var
 	options = require('enyo/options');
 
 module.exports = {
 	/**
-	* Read alert message.
+	* Reads alert message.
 	*
 	* @public
 	*/

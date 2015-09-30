@@ -1,3 +1,8 @@
+/**
+* Contains the declaration for the {@link module:enyo-webos/ServiceModel~ServiceModel} kind.
+* @module enyo-webos/ServiceModel
+*/
+
 var
 	kind = require('enyo/kind');
 
@@ -6,24 +11,24 @@ var
 	LunaSource = require('./LunaSource');
 
 /**
-* A webOS service version of {@link enyo.Model} designed to allow
+* A webOS service version of {@link module:enyo/Model~Model} designed to allow
 * for proper formatting of service parameters within the Enyo data layer.
 *
-* Includes support for mock services via the mock property.
+* Includes support for mock services via the `mock` property.
 *
 * Fetch/commit commands may include a json with the following properties:
-* 	success - callback function on request success
-* 	fail - callback function on request failure
+* 	`success` - callback function on request success
+* 	`fail` - callback function on request failure
 *
 * Service details (service, method, subscribe, mockFile, etc.) can be included within
 * fetch/commit options directly for overriding or inline setup.
 *
-* @class enyo.ServiceModel
-* @extends enyo.Model
+* @class ServiceModel
+* @extends module:enyo/Model~Model
 * @public
 */
 module.exports = kind(
-	/** @lends enyo.ServiceModel.prototype */ {
+	/** @lends module:enyo-webos/ServiceModel~ServiceModel.prototype */ {
 
 	/**
 	* @private
@@ -39,7 +44,10 @@ module.exports = kind(
 	* Name of the created LunaSource source to use. Default naming scheme can be defined by:
 	*
 	* ```
-	* enyo.Source.create({kind:'LunaSource'});
+	* var
+	*     Source = require('enyo/Source');
+	*
+	* Source.create({kind:'LunaSource'});
 	* ```
 	*
 	* @type {String}
@@ -49,7 +57,7 @@ module.exports = kind(
 	source: LunaSource,
 
 	/**
-	* Luna service URI.  Starts with luna://
+	* The Luna service URI.  Starts with `luna://`.
 	*
 	* @type {String}
 	* @default ''
@@ -58,7 +66,7 @@ module.exports = kind(
 	service: '',
 
 	/**
-	* Service method you want to call
+	* The service method to call.
 	*
 	* @type {String}
 	* @default ''
@@ -67,7 +75,7 @@ module.exports = kind(
 	method: '',
 
 	/**
-	* JSON parameters payload to send with the service request
+	* The payload of JSON parameters to send with the service request.
 	*
 	* @type {Object}
 	* @public
@@ -75,7 +83,7 @@ module.exports = kind(
 	params: undefined,
 
 	/**
-	* Whether or not the request to subscribe to the service
+	* Whether or not to subscribe to the service.
 	*
 	* @type {Boolean}
 	* @default false
@@ -84,7 +92,7 @@ module.exports = kind(
 	subscribe: false,
 
 	/**
-	* Whether or not the request should resubscribe when an error is returned
+	* Whether or not the request should resubscribe when an error is returned.
 	*
 	* @type {Boolean}
 	* @default false
@@ -93,7 +101,8 @@ module.exports = kind(
 	resubscribe: false,
 
 	/**
-	* If true, {@link enyo.MockRequest} will be used in place of {@link enyo.ServiceRequest}
+	* If `true`, {@link module:enyo-webos/MockRequest~MockRequest} will be used in
+	* place of {@link module:enyo-webos/ServiceRequest~ServiceRequest}.
 	*
 	* @type {Boolean}
 	* @default false
@@ -102,8 +111,8 @@ module.exports = kind(
 	mock: false,
 
 	/**
-	* Optionally specify the json file to read for mock results, rather than autogenerating the
-	* filepath
+	* Optionally specifies a JSON file to read for mock results, rather than
+	* autogenerating the filepath.
 	*
 	* @type {String}
 	* @public
