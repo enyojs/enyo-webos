@@ -150,8 +150,7 @@ module.exports = kind(
 	},
 
 	/**
-	* Needed for referencing to {@link module:enyo-webos/PalmService~PalmService}
-	* for compatability.
+	* Needed for referencing to `enyo-webos/PalmService` for compatability.
 	*
 	* @private
 	*/
