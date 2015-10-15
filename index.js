@@ -16,5 +16,6 @@ if (!global.cordova) {
 	document.addEventListener('menubutton', utils.bind(Signals, 'send', 'onmenubutton'), false);
 }
 dispatcher.listen(document, 'webOSMouse');
+dispatcher.listen(document, 'keyboardStateChange');
 
 exports.version = '2.6.0-pre.17.1';
