@@ -6,7 +6,7 @@
   "main": "index.js",
   "moduleDir": "src",
   "version": "2.6.0-pre.5-dev",
-  "description": "enyo-webos ==========",
+  "description": "Enyo library for webOS-specific kinds and APIs.",
   "bugs": "http://jira.enyojs.com/",
   "scripts": {
     "test": "./node_modules/.bin/gulp"
@@ -21,12 +21,7 @@
       "web": "http://enyojs.com/"
     }
   ],
-  "licenses": [
-    {
-      "type": "Apache-2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0"
-    }
-  ],
+  "license": "Apache-2.0",
   "homepage": "https://github.com/enyojs/enyo-webos",
   "devDependencies": {
     "gulp": "^3.8.11",
