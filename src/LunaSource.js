@@ -4,7 +4,8 @@
 */
 
 var
-	kind = require('enyo/kind');
+	kind = require('enyo/kind'),
+	utils = require('enyo/utils');
 
 var
 	Source = require('enyo/Source'),
@@ -51,6 +52,18 @@ module.exports = kind(
 	kind: Source,
 
 	/**
+	*
+	* @private
+	*/
+	activeRequests: [],
+
+	/**
+	*
+	* @private
+	*/
+	activeSubscriptionRequests: [],
+
+	/**
 	* The request is created and sent, saving the request object reference to the
 	* 'request' property on the model.
 	*
@@ -70,19 +83,63 @@ module.exports = kind(
 			mockFile: (opts.mockFile || model.mockFile)
 		};
 		model.request = new Kind(o);
-		model.request.response(function (req, res) {
-			if(opts.success) {
-				opts.success(res, req);
-			}
-		});
-		model.request.error(function (req, res) {
-			if(opts.error) {
-				opts.error(res, req);
-			}
-		});
+		model.request.originalCancel = model.request.cancel;
+		model.request.cancel = utils.bind(this, 'cancel', model.request);
+		model.request.response(this.requestSuccess.bind(this, opts), this);
+		model.request.error(this.requestFailure.bind(this, opts), this);
+
+		if(model.request.subscribe && !(opts.mock || model.mock)) {
+			this.activeSubscriptionRequests.push(model.request);
+		} else {
+			this.activeRequests.push(model.request);
+		}
+
 		model.request.go(opts.params || model.params || {});
+
+		return model.request;
 	},
 
+	cancel: function (req) {
+		this.removeRequest(req);
+		req.originalCancel();
+	},
+
+	removeRequest: function (req) {
+		var i = -1;
+		i = this.activeRequests.indexOf(req);
+		if (i !== -1) {
+			this.activeRequests.splice(i, 1);
+		} else {
+			i = this.activeSubscriptionRequests.indexOf(req);
+			if (i !== -1) {
+				this.activeSubscriptionRequests.splice(i, 1);
+			}
+		}
+	},
+
+	requestSuccess: function (opts, req, res) {
+		if(opts.success) {
+			opts.success(res, req);
+		}
+
+		this.requestComplete(req);
+	},
+
+	requestFailure: function (opts, req, error) {
+		if(opts.error) {
+			opts.error(error, req);
+		}
+
+		this.requestComplete(req);
+	},
+
+	requestComplete: function (req) {
+		var i = -1;
+		i = this.activeRequests.indexOf(req);
+		if (i !== -1) {
+			this.activeRequests.splice(i, 1);
+		}
+	},
 	/**
 	* With service requests, fetch and commit share identical routes.
 	*
@@ -100,6 +157,17 @@ module.exports = kind(
 	* @private
 	*/
 	destroy: function (model, opts) {
+		var i;
+		for(i=0; i<this.activeRequests.length; i++) {
+			this.activeRequests[i].originalCancel();
+		}
+		delete this.activeRequests;
+
+		for(i=0; i<this.activeSubscriptionRequests.length; i++) {
+			this.activeSubscriptionRequests[i].originalCancel();
+		}
+		delete this.activeSubscriptionRequests;
+
 		var req = model.request || opts.request;
 		if(req && model.request.cancel) {
 			model.request.cancel();
