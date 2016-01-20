@@ -26,6 +26,7 @@ var
 * @property {Function} fail       - Callback on request failure
 * @property {Boolean} mock        - If `true`, {@link module:enyo-webos/MockRequest~MockRequest} will be used in place of enyo.ServiceRequest
 * @property {String} mockFile     - Specifies a JSON file to read for mock results, rather than autogenerating the filepath
+* @property {Number} timeout      - The number of milliseconds to wait before failing with a _timeout_ error. This only takes effect for non-zero values.
 * @public
 */
 
@@ -80,7 +81,8 @@ module.exports = kind(
 			method: (opts.method || model.method),
 			subscribe: (opts.subscribe || model.subscribe),
 			resubscribe: (opts.resubscribe || model.resubscribe),
-			mockFile: (opts.mockFile || model.mockFile)
+			mockFile: (opts.mockFile || model.mockFile),
+			timeout: (opts.timeout || model.timeout || 0)
 		};
 		model.request = new Kind(o);
 		model.request.originalCancel = model.request.cancel;
