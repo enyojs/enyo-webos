@@ -24,7 +24,7 @@ var
 * @property {Object} params       - Payload of parameters to be sent with the service request
 * @property {Function} success    - Callback on request success
 * @property {Function} fail       - Callback on request failure
-* @property {Boolean} mock        - If `true`, {@link module:enyo-webos/MockRequest~MockRequest} will be used in place of enyo.ServiceRequest
+* @property {Boolean} mock        - If `true`, {@link module:enyo-webos/MockRequest~MockRequest} will be used in place of enyo/ServiceRequest
 * @property {String} mockFile     - Specifies a JSON file to read for mock results, rather than autogenerating the filepath
 * @property {Number} timeout      - The number of milliseconds to wait before failing with a _timeout_ error. This only takes effect for non-zero values.
 * @public
@@ -53,16 +53,15 @@ module.exports = kind(
 	kind: Source,
 
 	/**
-	*
 	* @private
 	*/
-	activeRequests: [],
-
-	/**
-	*
-	* @private
-	*/
-	activeSubscriptionRequests: [],
+	constructor: kind.inherit(function (sup) {
+		return function () {
+			sup.apply(this, arguments);
+			this.activeRequests = [];
+			this.activeSubscriptionRequests = [];
+		};
+	}),
 
 	/**
 	* The request is created and sent, saving the request object reference to the
@@ -102,19 +101,21 @@ module.exports = kind(
 	},
 
 	cancel: function (req) {
-		this.removeRequest(req);
+		this.removeRequest(req, req.subscribe);
 		req.originalCancel();
 	},
 
-	removeRequest: function (req) {
-		var i = -1;
-		i = this.activeRequests.indexOf(req);
-		if (i !== -1) {
-			this.activeRequests.splice(i, 1);
-		} else {
+	removeRequest: function (req, subscribe) {
+		var i;
+		if (subscribe) {
 			i = this.activeSubscriptionRequests.indexOf(req);
 			if (i !== -1) {
 				this.activeSubscriptionRequests.splice(i, 1);
+			}
+		} else {
+			i = this.activeRequests.indexOf(req);
+			if (i !== -1) {
+				this.activeRequests.splice(i, 1);
 			}
 		}
 	},
@@ -124,7 +125,7 @@ module.exports = kind(
 			opts.success(res, req);
 		}
 
-		this.requestComplete(req);
+		this.removeRequest(req, false);
 	},
 
 	requestFailure: function (opts, req, error) {
@@ -132,16 +133,9 @@ module.exports = kind(
 			opts.error(error, req);
 		}
 
-		this.requestComplete(req);
+		this.removeRequest(req, req.subscribe);
 	},
 
-	requestComplete: function (req) {
-		var i = -1;
-		i = this.activeRequests.indexOf(req);
-		if (i !== -1) {
-			this.activeRequests.splice(i, 1);
-		}
-	},
 	/**
 	* With service requests, fetch and commit share identical routes.
 	*
