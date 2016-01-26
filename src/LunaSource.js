@@ -101,13 +101,13 @@ module.exports = kind(
 	},
 
 	cancel: function (req) {
-		this.removeRequest(req, req.subscribe);
+		this.removeRequest(req);
 		req.originalCancel();
 	},
 
-	removeRequest: function (req, subscribe) {
+	removeRequest: function (req) {
 		var i;
-		if (subscribe) {
+		if (req.subscribe) {
 			i = this.activeSubscriptionRequests.indexOf(req);
 			if (i !== -1) {
 				this.activeSubscriptionRequests.splice(i, 1);
@@ -125,7 +125,9 @@ module.exports = kind(
 			opts.success(res, req);
 		}
 
-		this.removeRequest(req, false);
+		if(!req.subscribe) {
+			this.removeRequest(req);
+		}
 	},
 
 	requestFailure: function (opts, req, error) {
@@ -133,7 +135,7 @@ module.exports = kind(
 			opts.error(error, req);
 		}
 
-		this.removeRequest(req, req.subscribe);
+		this.removeRequest(req);
 	},
 
 	/**
