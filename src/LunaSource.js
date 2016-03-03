@@ -106,17 +106,10 @@ module.exports = kind(
 	},
 
 	removeRequest: function (req) {
-		var i;
 		if (req.subscribe) {
-			i = this.activeSubscriptionRequests.indexOf(req);
-			if (i !== -1) {
-				this.activeSubscriptionRequests.splice(i, 1);
-			}
+			utils.remove(this.activeSubscriptionRequests, req);
 		} else {
-			i = this.activeRequests.indexOf(req);
-			if (i !== -1) {
-				this.activeRequests.splice(i, 1);
-			}
+			utils.remove(this.activeRequests, req);
 		}
 	},
 
