@@ -4,7 +4,8 @@
 */
 
 var
-	kind = require('enyo/kind');
+	kind = require('enyo/kind'),
+	utils = require('enyo/utils');
 
 var
 	Source = require('enyo/Source'),
@@ -23,8 +24,9 @@ var
 * @property {Object} params       - Payload of parameters to be sent with the service request
 * @property {Function} success    - Callback on request success
 * @property {Function} fail       - Callback on request failure
-* @property {Boolean} mock        - If `true`, {@link module:enyo-webos/MockRequest~MockRequest} will be used in place of enyo.ServiceRequest
+* @property {Boolean} mock        - If `true`, {@link module:enyo-webos/MockRequest~MockRequest} will be used in place of enyo/ServiceRequest
 * @property {String} mockFile     - Specifies a JSON file to read for mock results, rather than autogenerating the filepath
+* @property {Number} timeout      - The number of milliseconds to wait before failing with a _timeout_ error. This only takes effect for non-zero values.
 * @public
 */
 
@@ -51,6 +53,17 @@ module.exports = kind(
 	kind: Source,
 
 	/**
+	* @private
+	*/
+	constructor: kind.inherit(function (sup) {
+		return function () {
+			sup.apply(this, arguments);
+			this.activeRequests = [];
+			this.activeSubscriptionRequests = [];
+		};
+	}),
+
+	/**
 	* The request is created and sent, saving the request object reference to the
 	* 'request' property on the model.
 	*
@@ -67,20 +80,57 @@ module.exports = kind(
 			method: (opts.method || model.method),
 			subscribe: (opts.subscribe || model.subscribe),
 			resubscribe: (opts.resubscribe || model.resubscribe),
-			mockFile: (opts.mockFile || model.mockFile)
+			mockFile: (opts.mockFile || model.mockFile),
+			timeout: (opts.timeout || model.timeout || 0)
 		};
 		model.request = new Kind(o);
-		model.request.response(function (req, res) {
-			if(opts.success) {
-				opts.success(res, req);
-			}
-		});
-		model.request.error(function (req, res) {
-			if(opts.error) {
-				opts.error(res, req);
-			}
-		});
+		model.request.originalCancel = model.request.cancel;
+		model.request.cancel = utils.bind(this, 'cancel', model.request);
+		model.request.response(this.requestSuccess.bind(this, opts), this);
+		model.request.error(this.requestFailure.bind(this, opts), this);
+
+		if(model.request.subscribe && !(opts.mock || model.mock)) {
+			this.activeSubscriptionRequests.push(model.request);
+		} else {
+			this.activeRequests.push(model.request);
+		}
+
 		model.request.go(opts.params || model.params || {});
+
+		return model.request;
+	},
+
+	cancel: function (req) {
+		this.removeRequest(req);
+		req.originalCancel();
+	},
+
+	removeRequest: function (req) {
+		if (req.subscribe) {
+			utils.remove(this.activeSubscriptionRequests, req);
+		} else {
+			utils.remove(this.activeRequests, req);
+		}
+	},
+
+	requestSuccess: function (opts, req, res) {
+		if(opts.success) {
+			opts.success(res, req);
+		}
+
+		if(!req.subscribe) {
+			this.removeRequest(req);
+		}
+	},
+
+	requestFailure: function (opts, req, error) {
+		if(opts.error) {
+			opts.error(error, req);
+		}
+
+		if (!req.resubscribe) {
+			this.removeRequest(req);
+		}
 	},
 
 	/**
@@ -100,6 +150,17 @@ module.exports = kind(
 	* @private
 	*/
 	destroy: function (model, opts) {
+		var i;
+		for(i=0; i<this.activeRequests.length; i++) {
+			this.activeRequests[i].originalCancel();
+		}
+		delete this.activeRequests;
+
+		for(i=0; i<this.activeSubscriptionRequests.length; i++) {
+			this.activeSubscriptionRequests[i].originalCancel();
+		}
+		delete this.activeSubscriptionRequests;
+
 		var req = model.request || opts.request;
 		if(req && model.request.cancel) {
 			model.request.cancel();
