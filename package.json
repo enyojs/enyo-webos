@@ -5,7 +5,7 @@
   "styles": [],
   "main": "index.js",
   "moduleDir": "src",
-  "version": "2.7.0-rc.2",
+  "version": "2.7.0",
   "description": "Enyo library for webOS-specific kinds and APIs.",
   "bugs": "http://jira.enyojs.com/",
   "scripts": {
