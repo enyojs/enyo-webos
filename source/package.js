@@ -1,9 +1,0 @@
-enyo.depends(
-	'Events.js',
-	'ServiceRequest.js',
-	'MockRequest.js',
-	'LunaService.js',
-	'LunaSource.js',
-	'ServiceModel.js',
-	'webOSjs-loader.js'
-);
