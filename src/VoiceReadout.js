@@ -16,7 +16,7 @@ module.exports = {
 	* @public
 	*/
 	readAlert: function(s, c) {
-		if (options.accessibility && window.webOS.voicereadout) {
+		if (options.accessibility && window.webOS.voicereadout && window.PalmSystem && window.PalmSystem.isActivated) {
 			window.webOS.voicereadout.readAlert(s, c);
 		}
 	}
