@@ -5,7 +5,7 @@
   "styles": [],
   "main": "index.js",
   "moduleDir": "src",
-  "version": "2.6.4-rc.8",
+  "version": "2.6.4-rc.8.1",
   "description": "enyo-webos ==========",
   "bugs": "http://jira.enyojs.com/",
   "scripts": {
