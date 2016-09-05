@@ -17,5 +17,6 @@ if (!global.cordova) {
 }
 dispatcher.listen(document, 'webOSMouse');
 dispatcher.listen(document, 'keyboardStateChange');
+dispatcher.listen(document, 'cursorStateChange');
 
 exports.version = '2.6.4-rc.8.2';
