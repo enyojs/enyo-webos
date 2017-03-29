@@ -8,7 +8,8 @@ var
 	platform = require('enyo/platform');
 
 var
-	Signals = require('enyo/Signals');
+	Signals = require('enyo/Signals'),
+	Spotlight = require('spotlight');
 
 /**
 * Events are exposed through the {@link module:enyo/Signals~Signals} kind by
@@ -63,4 +64,5 @@ if (platform.webos || window.PalmSystem) {
 	for (var i=0, e; (e=wev[i]); i++) {
 		document.addEventListener(e, utils.bind(Signals, 'send', 'on' + e), false);
 	}
+	document.addEventListener('webOSMouse', utils.bind(Spotlight, 'onwebOSMouse'), false);
 }
