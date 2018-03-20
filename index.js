@@ -18,4 +18,4 @@ if (!global.cordova) {
 dispatcher.listen(document, 'webOSMouse');
 dispatcher.listen(document, 'keyboardStateChange');
 
-exports.version = '2.6.4-rc.13.3.s';
+exports.version = '2.6.4-rc.13.4.s';
